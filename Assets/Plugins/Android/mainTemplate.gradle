@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply from: '../shared/keepUnitySymbols.gradle'
+**APPLY_PLUGINS**
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+// Android Resolver Dependencies Start
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
+    implementation 'androidx.lifecycle:lifecycle-common:2.7.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:22
+    implementation 'androidx.lifecycle:lifecycle-process:2.7.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:17
+    implementation 'com.google.android.gms:play-services-ads:23.6.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
+    implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
+    implementation 'com.google.android.libraries.play.games:inputmapping:1.0.0-beta' // Assets/ThirdPartyAssets/play-unity-plugins-master/GooglePlayPlugins/com.google.play.inputmapping/Editor/Dependencies.xml:3
+    implementation 'com.google.android.play:asset-delivery:2.2.1' // Assets/ThirdPartyAssets/play-unity-plugins-master/GooglePlayPlugins/com.google.play.assetdelivery/Editor/Dependencies.xml:3
+    implementation 'com.google.android.play:core-common:2.0.0' // Assets/ThirdPartyAssets/play-unity-plugins-master/GooglePlayPlugins/com.google.play.core/Editor/Dependencies.xml:3
+    implementation 'com.google.android.play:integrity:1.3.0' // Assets/ThirdPartyAssets/play-unity-plugins-master/GooglePlayPlugins/com.google.play.integrity/Editor/Dependencies.xml:3
+    implementation 'com.google.android.play:review:2.0.0' // Assets/ThirdPartyAssets/play-unity-plugins-master/GooglePlayPlugins/com.google.play.review/Editor/Dependencies.xml:3
+    implementation 'com.google.android.ump:user-messaging-platform:3.1.0' // Assets/GoogleMobileAds/Editor/GoogleUmpDependencies.xml:7
+    implementation 'com.google.firebase:firebase-analytics:22.2.0' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:15
+    implementation 'com.google.firebase:firebase-analytics-unity:12.6.0' // Assets/Firebase/Editor/AnalyticsDependencies.xml:18
+    implementation 'com.google.firebase:firebase-app-unity:12.6.0' // Assets/Firebase/Editor/AppDependencies.xml:22
+    implementation 'com.google.firebase:firebase-common:21.0.0' // Assets/Firebase/Editor/AppDependencies.xml:13
+    implementation 'com.google.firebase:firebase-config:22.1.0' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:13
+    implementation 'com.google.firebase:firebase-config-unity:12.6.0' // Assets/Firebase/Editor/RemoteConfigDependencies.xml:20
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:19.4.0' // Assets/Firebase/Editor/CrashlyticsDependencies.xml:13
+    implementation 'com.google.firebase:firebase-crashlytics-unity:12.6.0' // Assets/Firebase/Editor/CrashlyticsDependencies.xml:20
+// Android Resolver Dependencies End
+**DEPS**}
+
+// Android Resolver Exclusions Start
+android {
+  packaging {
+      exclude ('/lib/armeabi/*' + '*')
+      exclude ('/lib/mips/*' + '*')
+      exclude ('/lib/mips64/*' + '*')
+      exclude ('/lib/x86/*' + '*')
+      exclude ('/lib/x86_64/*' + '*')
+  }
+}
+// Android Resolver Exclusions End
+android {
+    namespace "com.unity3d.player"
+    ndkPath "**NDKPATH**"
+    ndkVersion "**NDKVERSION**"
+
+    compileSdk **APIVERSION**
+    buildToolsVersion = "**BUILDTOOLS**"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        minSdk **MINSDK**
+        targetSdk **TARGETSDK**
+        ndk {
+            abiFilters **ABIFILTERS**
+            debugSymbolLevel **DEBUGSYMBOLLEVEL**
+        }
+        versionCode **VERSIONCODE**
+        versionName '**VERSIONNAME**'
+        consumerProguardFiles 'proguard-unity.txt'**USER_PROGUARD**
+**DEFAULT_CONFIG_SETUP**
+    }
+
+    lint {
+        abortOnError false
+    }
+
+    androidResources {
+        noCompress = **BUILTIN_NOCOMPRESS** + unityStreamingAssets.tokenize(', ')
+        ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~"
+    }**PACKAGING**
+}
+**IL_CPP_BUILD_SETUP**
+**SOURCE_BUILD_SETUP**
+**EXTERNAL_SOURCES**
