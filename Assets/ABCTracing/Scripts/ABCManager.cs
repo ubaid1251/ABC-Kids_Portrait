@@ -1,11 +1,11 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
-using TMPro;
 
 public class ABCManager : MonoBehaviour
 {
@@ -38,7 +38,7 @@ public class ABCManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.ShowBanner(); //remove later
+            Intitializeabc.instance.ShowBanner(); //remove later
         }
         else
         {
@@ -71,6 +71,27 @@ public class ABCManager : MonoBehaviour
         //shapeGameObject.transform.SetParent(page);
         shapeGameObject.transform.localPosition = new Vector3(0,-0.2f,0);
         shapeGameObject.transform.localScale = new Vector3(1.23f, 1.23f, 1.23f);
+        if (PlayerPrefs.GetString("SelectedAlphabet") == "M" || PlayerPrefs.GetString("SelectedAlphabet") == "W" 
+            || PlayerPrefs.GetString("SelectedAlphabet") == "m")
+        {
+            //print("I am M");
+            shapeGameObject.transform.localScale = new Vector3(1f, 1f,1f);
+        }
+        if (PlayerPrefs.GetString("SelectedMode") == "NumbersLearning")
+        {
+            //print("I am M");
+            shapeGameObject.transform.localScale = new Vector3(1.6f, 1.6f, 1.6f);
+        }
+        if (PlayerPrefs.GetString("SelectedAlphabet") == "i")
+        {
+            //print("I am M");
+            shapeGameObject.transform.localScale = new Vector3(1.45f, 1.45f, 1.45f);
+        }
+        if (PlayerPrefs.GetString("SelectedAlphabet") == "10")
+        {
+            //print("I am M");
+            shapeGameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
         eraser.p = shapeGameObject.GetComponent<LetterHandler>().ErasP;
         title.text = shapeGameObject.GetComponent<LetterHandler>().MyTitle;
         title.color = shapeGameObject.GetComponent<LetterHandler>().ColorForText;
@@ -195,9 +216,11 @@ public class ABCManager : MonoBehaviour
         PlayerPrefs.SetInt("Completed", 1);
         PlayerPrefs.SetInt("RateCounter", PlayerPrefs.GetInt("RateCounter") + 1);
         eventSystem.enabled = false;
-        InitializeFirebase_CB._Instance.LogFirebaseEvent("HomePressed_Gameplay_On_" +
-                                                         PlayerPrefs.GetString("SelectedMode") +
-                                                         "_Mode"); //remove later
+        //InitializeFirebase_CB._Instance.LogFirebaseEvent("HomePressed_Gameplay_On_" +
+        //                                                 PlayerPrefs.GetString("SelectedMode") +
+        //                                                 "_Mode"); //remove later
+
+        InitializeFi._Instance.LogFi();
         DOTween.KillAll(false);
         //if (SoundHandler.instance.mySource.enabled == true)
         //{

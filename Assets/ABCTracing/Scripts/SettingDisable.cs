@@ -11,7 +11,7 @@ public class SettingDisable : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("RemoveAds") == 0)
             {
-                IntitializeAdmob.instance.ShowBanner();//remove later
+                Intitializeabc.instance.ShowBanner();//remove later
             }
         }
         gameObject.SetActive(false);

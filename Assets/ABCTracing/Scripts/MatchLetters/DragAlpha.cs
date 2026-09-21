@@ -5,7 +5,10 @@ using DG.Tweening;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndDragHandler
+public class DragAlpha : MonoBehaviour,
+    IPointerDownHandler,
+    IDragHandler,
+    IEndDragHandler
 {
     private RectTransform _rect;
     private Vector2 _pos;
@@ -16,43 +19,140 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
     [Header("Correct Drop Target")]
     public RectTransform moveTo;
 
+    [Header("Drag Settings")]
+    public bool useDragOffset = true;
+
+    private Vector2 _dragOffset;
+
     private bool _completed = false;
     private bool _up = false;
 
-    private void Start()
+    private Camera _dragCamera;
+
+    private void Awake()
     {
         _my = GetComponent<Image>();
         _myCan = GetComponent<Canvas>();
         _rect = GetComponent<RectTransform>();
 
-        _child = transform.GetChild(0).gameObject;
+        if (transform.childCount > 0)
+            _child = transform.GetChild(0).gameObject;
     }
+
+    private void Start()
+    {
+        // Make sure the object starts in the correct state
+        if (_child != null)
+            _child.SetActive(false);
+
+        _my.raycastTarget = true;
+    }
+
+    // =========================================================
+    // POINTER DOWN
+    // =========================================================
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (_completed)
+            return;
+
         _up = false;
+
+        // Kill any previous movement animation
+        _rect.DOKill();
 
         // Save original position
         _pos = _rect.anchoredPosition;
 
-        // Bring object to front
-        _myCan.sortingOrder = 10;
+        // Camera used for converting screen coordinates
+        _dragCamera = eventData.pressEventCamera;
 
-        _child.SetActive(true);
+        if (_dragCamera == null &&
+            _myCan.renderMode != RenderMode.ScreenSpaceOverlay)
+        {
+            _dragCamera = _myCan.worldCamera;
+        }
+
+        // -----------------------------------------------------
+        // Calculate the exact point where the user touched
+        // -----------------------------------------------------
+
+        if (useDragOffset)
+        {
+            Vector2 localPointerPosition;
+
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    _rect.parent as RectTransform,
+                    eventData.position,
+                    _dragCamera,
+                    out localPointerPosition))
+            {
+                _dragOffset =
+                    _rect.anchoredPosition -
+                    localPointerPosition;
+            }
+        }
+
+        // Bring object to front
+        if (_myCan != null)
+            _myCan.sortingOrder = 10;
+
+        // Show child
+        if (_child != null)
+            _child.SetActive(true);
     }
+
+    // =========================================================
+    // DRAG
+    // =========================================================
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Keep the working portrait drag
-        _rect.anchoredPosition += eventData.delta / _myCan.scaleFactor;
+        if (_completed)
+            return;
+
+        RectTransform parentRect =
+            _rect.parent as RectTransform;
+
+        if (parentRect == null)
+            return;
+
+        Vector2 localPointerPosition;
+
+        // Convert pointer screen position into parent's local space
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentRect,
+                eventData.position,
+                _dragCamera,
+                out localPointerPosition))
+        {
+            if (useDragOffset)
+            {
+                // Maintain exact point where pointer touched object
+                _rect.anchoredPosition =
+                    localPointerPosition + _dragOffset;
+            }
+            else
+            {
+                // Directly follow pointer
+                _rect.anchoredPosition =
+                    localPointerPosition;
+            }
+        }
     }
+
+    // =========================================================
+    // END DRAG
+    // =========================================================
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (_completed)
+            return;
+
         _up = true;
 
-        // Check whether the dragged object is actually over
-        // the assigned moveTo object.
         bool correctDrop = IsDraggedObjectOverTarget();
 
         Debug.Log(
@@ -65,63 +165,9 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
         // CORRECT DROP
         // =====================================================
 
-        if (correctDrop && !_completed)
+        if (correctDrop)
         {
-            Vibration.Vibrate(50);
-
-            if (MatchingManager.Instance.myS.enabled)
-            {
-                MatchingManager.Instance.myS.PlayOneShot(
-                    MatchingManager.Instance.correct
-                );
-            }
-
-            if (MatchingManager.Instance.myS.enabled)
-            {
-                MatchingManager.Instance.myS.PlayOneShot(
-                    MatchingManager.Instance.voiceOver[
-                        Random.Range(
-                            0,
-                            MatchingManager.Instance.voiceOver.Length
-                        )
-                    ]
-                );
-            }
-
-            _completed = true;
-
-            _my.raycastTarget = false;
-
-            // Move exactly to target
-            _rect.DOMove(
-                moveTo.position,
-                0.5f
-            );
-
-            IndicationHandler.Instance.timeSinceLastInput = 0;
-
-            // Remove indication
-            RectTransform indication =
-                transform.GetChild(1).GetComponent<RectTransform>();
-
-            IndicationHandler.Instance.allIndi.Remove(indication);
-
-            // Scale down
-            _rect.DOScale(
-                Vector3.zero,
-                0.5f
-            ).OnComplete(() =>
-            {
-                MatchingManager.Instance.matched++;
-
-                gameObject.SetActive(false);
-
-                if (MatchingManager.Instance.size ==
-                    MatchingManager.Instance.matched)
-                {
-                    MatchingManager.Instance.EndAnim();
-                }
-            });
+            CompleteDrop();
         }
 
         // =====================================================
@@ -135,7 +181,87 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
     }
 
     // =========================================================
-    // CHECK IF DRAGGED OBJECT IS OVER moveTo
+    // CORRECT DROP
+    // =========================================================
+
+    private void CompleteDrop()
+    {
+        if (_completed)
+            return;
+
+        Vibration.Vibrate(50);
+
+        if (MatchingManager.Instance.myS.enabled)
+        {
+            MatchingManager.Instance.myS.PlayOneShot(
+                MatchingManager.Instance.correct
+            );
+        }
+
+        if (MatchingManager.Instance.myS.enabled &&
+            MatchingManager.Instance.voiceOver != null &&
+            MatchingManager.Instance.voiceOver.Length > 0)
+        {
+            MatchingManager.Instance.myS.PlayOneShot(
+                MatchingManager.Instance.voiceOver[
+                    Random.Range(
+                        0,
+                        MatchingManager.Instance.voiceOver.Length
+                    )
+                ]
+            );
+        }
+
+        _completed = true;
+
+        // Stop receiving raycasts
+        _my.raycastTarget = false;
+
+        // Move exactly to target
+        _rect.DOMove(
+            moveTo.position,
+            0.5f
+        ).SetEase(Ease.OutQuad);
+
+        IndicationHandler.Instance.timeSinceLastInput = 0;
+
+        // Remove indication safely
+        if (transform.childCount > 1)
+        {
+            RectTransform indication =
+                transform.GetChild(1)
+                    .GetComponent<RectTransform>();
+
+            if (indication != null)
+            {
+                IndicationHandler.Instance.allIndi.Remove(
+                    indication
+                );
+            }
+        }
+
+        // Scale down
+        _rect.DOScale(
+            Vector3.zero,
+            0.5f
+        )
+        .SetEase(Ease.InBack)
+        .OnComplete(() =>
+        {
+            MatchingManager.Instance.matched++;
+
+            gameObject.SetActive(false);
+
+            if (MatchingManager.Instance.size ==
+                MatchingManager.Instance.matched)
+            {
+                MatchingManager.Instance.EndAnim();
+            }
+        });
+    }
+
+    // =========================================================
+    // CHECK CORRECT TARGET
     // =========================================================
 
     private bool IsDraggedObjectOverTarget()
@@ -152,14 +278,13 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
 
         Camera cam = null;
 
-        // For Screen Space - Camera / World Space Canvas
         if (_myCan.renderMode != RenderMode.ScreenSpaceOverlay)
         {
             cam = _myCan.worldCamera;
         }
 
         // -----------------------------------------------------
-        // Get dragged object's CENTER in screen coordinates
+        // Dragged object center
         // -----------------------------------------------------
 
         Vector2 draggedCenter =
@@ -169,14 +294,13 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
             );
 
         // -----------------------------------------------------
-        // Get moveTo's four WORLD corners
+        // Target corners
         // -----------------------------------------------------
 
         Vector3[] corners = new Vector3[4];
 
         moveTo.GetWorldCorners(corners);
 
-        // Convert corners to SCREEN coordinates
         Vector2 bottomLeft =
             RectTransformUtility.WorldToScreenPoint(
                 cam,
@@ -200,10 +324,6 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
                 cam,
                 corners[3]
             );
-
-        // -----------------------------------------------------
-        // Calculate target rectangle
-        // -----------------------------------------------------
 
         float minX = Mathf.Min(
             bottomLeft.x,
@@ -233,11 +353,6 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
             bottomRight.y
         );
 
-        // -----------------------------------------------------
-        // Check dragged object's CENTER
-        // is inside moveTo
-        // -----------------------------------------------------
-
         bool inside =
             draggedCenter.x >= minX &&
             draggedCenter.x <= maxX &&
@@ -261,12 +376,13 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
     }
 
     // =========================================================
-    // WRONG DROP ANIMATION
+    // WRONG DROP
     // =========================================================
 
     private void WrongDrop()
     {
-        _child.SetActive(false);
+        if (_child != null)
+            _child.SetActive(false);
 
         _my.raycastTarget = false;
 
@@ -279,31 +395,40 @@ public class DragAlpha : MonoBehaviour, IPointerDownHandler, IDragHandler, IEndD
             );
         }
 
-        // Shake left
+        // Reset rotation first
+        _rect.DOKill();
+
         _rect.DORotate(
             new Vector3(0, 0, -10),
             0.1f
-        ).OnComplete(() =>
+        )
+        .SetEase(Ease.OutQuad)
+        .OnComplete(() =>
         {
-            // Shake right
             _rect.DORotate(
                 new Vector3(0, 0, 10),
                 0.1f
-            ).OnComplete(() =>
+            )
+            .SetEase(Ease.InOutQuad)
+            .OnComplete(() =>
             {
-                // Back to normal
                 _rect.DORotate(
-                    new Vector3(0, 0, 0),
+                    Vector3.zero,
                     0.1f
-                ).OnComplete(() =>
+                )
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() =>
                 {
                     // Return to original position
                     _rect.DOAnchorPos(
                         _pos,
-                        0.5f
-                    ).OnComplete(() =>
+                        0.35f
+                    )
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() =>
                     {
-                        _myCan.sortingOrder = 5;
+                        if (_myCan != null)
+                            _myCan.sortingOrder = 5;
 
                         _my.raycastTarget = true;
                     });

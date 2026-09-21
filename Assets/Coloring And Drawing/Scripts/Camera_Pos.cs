@@ -81,7 +81,7 @@ public class Camera_Pos : MonoBehaviour
         {
             for (int i = 0; i < PositionAndScale.Length; i++)
             {
-                PositionAndScale[i].pos = PositionAndScale[i].pos - new Vector3(0, 0.62f, 0);
+               //// PositionAndScale[i].pos = PositionAndScale[i].pos - new Vector3(0, 0.62f, 0);
             }
             /*CameraFinalPosition = CameraFinalPosition - new Vector3(0, 1.33f, 0);
             CameraFinalPositionTab = CameraFinalPositionTab - new Vector3(0, 1.5f, 0);*/

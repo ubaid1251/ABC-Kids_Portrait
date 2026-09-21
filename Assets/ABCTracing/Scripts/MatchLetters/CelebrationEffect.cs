@@ -26,12 +26,12 @@ public class CelebrationEffect : MonoBehaviour
    void MoveToSelection()
    {
       DOTween.KillAll(false);
-        if (IntitializeAdmob.instance.IsInterAvailable() || IntitializeAdmob.instance.IsStaticInterAvailable())
-        {
-         gameObject.SetActive(false);
-         loadingH.SetActive(true);
-      }
-      else
+     //if (Intitializeabc.instance.IsInterAvailable() || Intitializeabc.instance.IsStaticInterAvailable())
+     // {
+     //    gameObject.SetActive(false);
+     //    loadingH.SetActive(true);
+     // }
+     // else
       {
          print(PlayerPrefs.GetString("ReloadScene")+" scene loaded celebration panel");
          SceneManager.LoadScene(PlayerPrefs.GetString("ReloadScene"));

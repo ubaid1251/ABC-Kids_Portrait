@@ -9,9 +9,10 @@ public class MainSelection : MonoBehaviour
     // Start is called before the first frame update
     public EventSystem eventSystem;
     public ScrollRect scroll;
-    public RectTransform content;
+    //public RectTransform content;
     public float[] allpos;
-    public RectTransform adult, setting, noAds,banner,mainCards;
+    public RectTransform adult, setting, noAds,banner,mainCards, scrollObj;
+    public GameObject obj,obj2;
     void Start()
     {
         if (PlayerPrefs.GetInt("RemoveAds") == 1)
@@ -19,17 +20,23 @@ public class MainSelection : MonoBehaviour
             adult.DOAnchorPosY(-100, 0);
             mainCards.DOAnchorPosY(450, 0);
             setting.DOAnchorPosY(-100, 0);
+            scrollObj.DOAnchorPosY(-120, 0);
             noAds.gameObject.SetActive(false);
             banner.gameObject.SetActive(false);
+            obj2.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 220f);
+            obj.GetComponent<RectTransform>().sizeDelta = new Vector2(0, 700f);
         }
-        if (PlayerPrefs.GetInt("RemoveAds") == 0&& ResCheck.ResolutionType == ResType.tab)
-        {
-            content.DOAnchorPosY(500, 0);
-        }
-        else if(PlayerPrefs.GetInt("RemoveAds") == 1 && ResCheck.ResolutionType == ResType.tab)
-        {
-            content.DOAnchorPosY(600, 0);
-        }
+
+
+
+        //if (PlayerPrefs.GetInt("RemoveAds") == 0&& ResCheck.ResolutionType == ResType.tab)
+        //{
+        //    content.DOAnchorPosY(500, 0);
+        //}
+        //else if(PlayerPrefs.GetInt("RemoveAds") == 1 && ResCheck.ResolutionType == ResType.tab)
+        //{
+        //    content.DOAnchorPosY(600, 0);
+        //}
         //SongManager.counter = 0;
         PlayerPrefs.SetInt("Turn", 0);
         PlayerPrefs.SetInt("StartMatch",0);
@@ -106,7 +113,8 @@ public class MainSelection : MonoBehaviour
     {
         eventSystem.enabled = false;
         SubSelection.cameFrom = "MainSelection";
-        InitializeFirebase_CB._Instance.LogFirebaseEvent(name + "_SelectedMode");
+        //InitializeFirebase_CB._Instance.LogFirebaseEvent(name + "_SelectedMode");
+        InitializeFi._Instance.LogFi();
         DOTween.KillAll(false);
         if (SoundHandler.instance.mySource.enabled)
         {
@@ -143,7 +151,8 @@ public class MainSelection : MonoBehaviour
 
     public void LogEvent(string n)
     {
-        InitializeFirebase_CB._Instance.LogFirebaseEvent("User_Trying_to_Open_"+n);
+        //InitializeFirebase_CB._Instance.LogFirebaseEvent("User_Trying_to_Open_"+n);
+        InitializeFi._Instance.LogFi();
     }
     public void showAdult(GameObject p)
     {
@@ -152,7 +161,7 @@ public class MainSelection : MonoBehaviour
             SoundHandler.instance.mySource.Play();
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.HideBanner();//remove later
+            Intitializeabc.instance.HideBanner();//remove later
         }
         p.SetActive(true);
     }

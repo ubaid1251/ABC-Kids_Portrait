@@ -17,13 +17,14 @@ public class SettingHandler : MonoBehaviour
     public void Cross()
     {
         SoundHandler.instance.PlaySource(SoundHandler.instance.mySource.clip);
-        InitializeFirebase_CB._Instance.LogFirebaseEvent("Disabling_Setting_Panel");
-       transform.GetChild(0).GetComponent<Animator>().Play("PanelOut");
+        // InitializeFirebase_CB._Instance.LogFirebaseEvent("Disabling_Setting_Panel");
+        InitializeFi._Instance.LogFi();
+        transform.GetChild(0).GetComponent<Animator>().Play("PanelOut");
         Invoke(nameof(HidePanel), 0.9f);
     }
     void HidePanel()
     {
-        IntitializeAdmob.instance.ShowBanner();
+        Intitializeabc.instance.ShowBanner();
         panel.gameObject.SetActive(value: false);
     }
 }

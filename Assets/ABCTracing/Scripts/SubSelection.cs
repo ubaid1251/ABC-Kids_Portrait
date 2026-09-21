@@ -41,7 +41,7 @@ public class SubSelection : MonoBehaviour
         //{
             if (PlayerPrefs.GetInt("RemoveAds") == 0)
             {
-                IntitializeAdmob.instance.ShowBanner();//remove later
+            Intitializeabc.instance.ShowBanner();//remove later
             }
             if (s == "ABCLearning")
             {
@@ -59,7 +59,7 @@ public class SubSelection : MonoBehaviour
     }
     void Start()
     {
-        PlayerPrefs.SetInt("RemoveAds", 1);
+        //PlayerPrefs.SetInt("RemoveAds", 1);
         if (PlayerPrefs.GetInt("RemoveAds") == 1)
         {
             adult.DOAnchorPosY(-100, 0);
@@ -123,15 +123,15 @@ public class SubSelection : MonoBehaviour
     void LoadH()
     {
 
-        if (IntitializeAdmob.instance.IsStaticInterAvailable())
-        {
-            LOADING.showBannerEnd = false;
-            LOADING.loadNextScene = true;
-            LOADING.staticInter = true;
-            PlayerPrefs.SetString("ReloadScene", "MainSelection");
-            LOADING.gameObject.SetActive(true);
-        }
-        else
+        //if (Intitializeabc.instance.IsStaticInterAvailable())
+        //{
+        //    LOADING.showBannerEnd = false;
+        //    LOADING.loadNextScene = true;
+        //    LOADING.staticInter = true;
+        //    PlayerPrefs.SetString("ReloadScene", "MainSelection");
+        //    LOADING.gameObject.SetActive(true);
+        //}
+        //else
         {
             if (RateUsHandler.Instance.rate.activeInHierarchy)
             {

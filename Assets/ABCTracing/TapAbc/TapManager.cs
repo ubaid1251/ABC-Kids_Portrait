@@ -25,13 +25,13 @@ public class TapManager : MonoBehaviour, IPointerDownHandler
     {
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.ShowBanner();
+            Intitializeabc.instance.ShowBanner();
         }
         else
         {
             BANNER.gameObject.SetActive(false);
             home.DOAnchorPosY(-110, 0);
-            music.DOAnchorPosY(-270, 0);
+            music.DOAnchorPosY(-110, 0);
         }
 
         if (PlayerPrefs.GetInt("bgm") == 1)
@@ -48,17 +48,18 @@ public class TapManager : MonoBehaviour, IPointerDownHandler
         Vibration.Vibrate(50);
         PlayerPrefs.SetInt("Completed", 1);
         PlayerPrefs.SetInt("RateCounter", PlayerPrefs.GetInt("RateCounter") + 1);
-        InitializeFirebase_CB._Instance.LogFirebaseEvent("TapABC_Switched_ByHome");
+      //  InitializeFirebase_CB._Instance.LogFirebaseEvent("TapABC_Switched_ByHome");
+        InitializeFi._Instance.LogFi();
         DOTween.KillAll(false);
-        if (IntitializeAdmob.instance.IsStaticInterAvailable())
-        {
-            PlayerPrefs.SetString("ReloadScene", "MainSelection");
-            loading.GetComponent<LoadingHandler>().showBannerEnd = false;
-            loading.GetComponent<LoadingHandler>().loadNextScene = true;
-            loading.GetComponent<LoadingHandler>().staticInter = true;
-            loading.SetActive(true);
-        }
-        else
+        //if (Intitializeabc.instance.IsStaticInterAvailable())
+        //{
+        //    PlayerPrefs.SetString("ReloadScene", "MainSelection");
+        //    loading.GetComponent<LoadingHandler>().showBannerEnd = false;
+        //    loading.GetComponent<LoadingHandler>().loadNextScene = true;
+        //    loading.GetComponent<LoadingHandler>().staticInter = true;
+        //    loading.SetActive(true);
+        //}
+        //else
         {
             if (RateUsHandler.Instance.rate.activeInHierarchy)
             {
@@ -106,10 +107,10 @@ public class TapManager : MonoBehaviour, IPointerDownHandler
         index++;
         if (index >= AllClips.Length)
         {
-            if (IntitializeAdmob.instance.IsInterAvailable() || IntitializeAdmob.instance.IsStaticInterAvailable())
-            {
-                loading.SetActive(true);
-            }
+            //if (Intitializeabc.instance.IsInterAvailable() || Intitializeabc.instance.IsStaticInterAvailable())
+            //{
+            //    loading.SetActive(true);
+            //}
             index = 0;
         }
 

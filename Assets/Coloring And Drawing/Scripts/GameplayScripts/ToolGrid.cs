@@ -27,7 +27,7 @@ public class ToolGrid : MonoBehaviour
         subToolPanels[0].SetActive(true);
         mainToolPanel.DOAnchorPosY(100, 1f).OnComplete(()=>
         {
-            subToolPanel.DOAnchorPosY(298, 1f).OnComplete(() =>
+            subToolPanel.DOAnchorPosY(213, 1f).OnComplete(() =>
             {
                 part.Play();
                 eve.gameObject.SetActive(true);
@@ -63,7 +63,7 @@ public class ToolGrid : MonoBehaviour
                 if (index != 5)
                 {
                     subToolPanels[t].SetActive(true);
-                    subToolPanel.DOAnchorPosX(-55, .5f).OnComplete(() => { eve.gameObject.SetActive(true); });
+                    subToolPanel.DOAnchorPosX(0, .5f).OnComplete(() => { eve.gameObject.SetActive(true); });
                 }
                 else
                 {
@@ -71,8 +71,7 @@ public class ToolGrid : MonoBehaviour
                 }
             });
 
-        mainHighLighter.DOAnchorPosY(v.GetComponent<RectTransform>()
-            .anchoredPosition.y, .5f);
+        mainHighLighter.DOAnchorPosX(v.GetComponent<RectTransform>().anchoredPosition.x, .5f);
         switch (index)
         {
 
@@ -131,22 +130,22 @@ public class ToolGrid : MonoBehaviour
     public void SelectPencil(int index)
     {
         eve.gameObject.SetActive(false);
-        allPencil[pencil].DOAnchorPosX(146, .5f);
+        //allPencil[pencil].DOAnchorPosX(146, .5f);
         pencil = index;
-        allPencil[pencil].DOAnchorPosX(110, .5f).OnComplete(() =>
-        {
+        //allPencil[pencil].DOAnchorPosX(110, .5f).OnComplete(() =>
+        //{
             eve.gameObject.SetActive(true);
-        });
+        //});
     }
     public void SelectBrush(int index)
     {
         eve.gameObject.SetActive(false);
-        allBrush[brush].DOAnchorPosX(210, .5f);
+      //  allBrush[brush].DOAnchorPosX(210, .5f);
         brush = index;
-        allBrush[brush].DOAnchorPosX(170, .5f).OnComplete(() =>
-        {
+       // allBrush[brush].DOAnchorPosX(170, .5f).OnComplete(() =>
+       // {
             eve.gameObject.SetActive(true);
-        });
+       // });
     }
     public void SelectBucket(float place)
     {
@@ -162,13 +161,13 @@ public class ToolGrid : MonoBehaviour
             FromEnable = false;
         }
         eve.gameObject.SetActive(false);
-        allBucket[bucket].DOAnchorPosX(80, .5f);
+        ////allBucket[bucket].DOAnchorPosX(80, .5f);
         bucket = index;
-        bucketHigh.DOAnchorPosY(place, .5f);
-        allBucket[bucket].DOAnchorPosX(50, .5f).OnComplete(() =>
-        {
+     //   bucketHigh.DOAnchorPosY(place, .5f);
+        //allBucket[bucket].DOAnchorPosX(50, .5f).OnComplete(() =>
+      //  {
             eve.gameObject.SetActive(true);
-        });
+        //});
     }
     public void SelectTexture(float place)
     {
@@ -184,13 +183,13 @@ public class ToolGrid : MonoBehaviour
             FromEnable = false;
         }
         eve.gameObject.SetActive(false);
-        allTexture[texture].DOAnchorPosX(80, .5f);
+       // allTexture[texture].DOAnchorPosX(80, .5f);
         texture = index;
-        textureHigh.DOAnchorPosY(place, .5f);
-        allTexture[texture].DOAnchorPosX(50, .5f).OnComplete(() =>
-        {
+       // textureHigh.DOAnchorPosY(place, .5f);
+      //  allTexture[texture].DOAnchorPosX(50, .5f).OnComplete(() =>
+       // {
             eve.gameObject.SetActive(true);
-        });
+     //   });
     }
     public void SelectSticker(float place)
     {
@@ -206,12 +205,12 @@ public class ToolGrid : MonoBehaviour
             FromEnable = false;
         }
         eve.gameObject.SetActive(false);
-        allStickers[sticker].DOAnchorPosX(80, .5f);
+        //allStickers[sticker].DOAnchorPosX(80, .5f);
         sticker = index;
-        stickersHigh.DOAnchorPosY(place, .5f);
-        allStickers[sticker].DOAnchorPosX(50, .5f).OnComplete(() =>
-        {
+       // stickersHigh.DOAnchorPosY(place, .5f);
+       // allStickers[sticker].DOAnchorPosX(50, .5f).OnComplete(() =>
+     //   {
             eve.gameObject.SetActive(true);
-        });
+     //   });
     }
 }

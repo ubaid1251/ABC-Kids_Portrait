@@ -2772,7 +2772,7 @@ namespace KGF.Coloring
 
             circleResolution = BrushSize_Custom;
 
-            Debug.Log("Changed by Bilal");
+            Debug.Log("Changee tool");
             resolution = BrushSize_Custom;
 
 

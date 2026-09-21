@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -134,6 +137,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -227,19 +233,19 @@ MonoBehaviour:
   ZPosition:
   - 0
   PositionAndScale:
-  - pos: {x: 0.5, y: 1.2, z: -10}
-    camSize: 4
+  - pos: {x: 0, y: 0, z: -10}
+    camSize: 4.2
   PositionAndScaleTab:
-  - pos: {x: 0.5, y: 1, z: -10}
-    camSize: 4
+  - pos: {x: 0, y: 0, z: -10}
+    camSize: 4.2
   pencilS: 1e000000
   brushS: 28000000
   InnerPencil: 46000000
   InnerBrush: 78000000
-  CameraFinalPosition: {x: 0.5, y: 1.2, z: -10}
-  CamSize: 4
-  CameraFinalPositionTab: {x: 0.5, y: 1.2, z: -10}
-  CamSizeTab: 4
+  CameraFinalPosition: {x: 0, y: 0, z: -10}
+  CamSize: 6.6
+  CameraFinalPositionTab: {x: 0, y: 0, z: -10}
+  CamSizeTab: 6.6
   digitsMoreThanOne: 0
   startClip: {fileID: 0}
   CompleteClip: {fileID: 8300000, guid: 03fef200d0c4a1c468842ca532f9da4d, type: 3}

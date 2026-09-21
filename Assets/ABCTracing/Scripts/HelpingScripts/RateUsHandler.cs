@@ -20,14 +20,14 @@ public class RateUsHandler : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.ShowBanner();//remove later
+            Intitializeabc.instance.ShowBanner();//remove later
         }
         gameObject.SetActive(false);
     }
     // Update is called once per frame
     public void Rate()
     {
-        IntitializeAdmob.instance.ShowBanner();//remove later
+        Intitializeabc.instance.ShowBanner();//remove later
         PlayerPrefs.SetInt("RateDone", 1);
         rate.SetActive(false);
         InAppReview.Instance.ShowInGameRating();
@@ -37,12 +37,13 @@ public class RateUsHandler : MonoBehaviour
     {
         SoundHandler.instance.PlaySource(SoundHandler.instance.mySource.clip);
         rate.GetComponent<Animator>().Play("PanelOut");
-        InitializeFirebase_CB._Instance.LogFirebaseEvent("Rate_Game_CrossBtn_Pressed"); //lock
+       // InitializeFi._Instance.LogFirebaseEvent("Rate_Game_CrossBtn_Pressed"); //lock
+        InitializeFi._Instance.LogFi();
         Invoke(nameof(HidePanel), 0.9f);
     }
     void HidePanel()
     {
-        IntitializeAdmob.instance.ShowBanner();
+        Intitializeabc.instance.ShowBanner();
         rate.gameObject.SetActive(value: false);
     }
     public bool CheckRateCondition()

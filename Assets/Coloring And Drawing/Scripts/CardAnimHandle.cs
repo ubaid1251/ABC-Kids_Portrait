@@ -21,27 +21,27 @@ public class CardAnimHandle : MonoBehaviour
             content.DOAnchorPosY(anchorPosY+50, 0);
         }
         int index = PlayerPrefs.GetInt("Character_Index");
-        if (PlayerPrefs.GetInt("fromGP") == 1)
-        {
-            PlayerPrefs.SetInt("fromGP", 0);
-            float p = PlayerPrefs.GetFloat("pos");
-            st = index < range ? endX : startX;
+        //if (PlayerPrefs.GetInt("fromGP") == 1)
+        //{
+        //    PlayerPrefs.SetInt("fromGP", 0);
+        //    float p = PlayerPrefs.GetFloat("pos");
+        //    st = index < range ? endX : startX;
 
-            content.DOAnchorPosX(st, 0).OnComplete(() =>
-            {
-                content.DOAnchorPosX(p, 1).OnComplete(() =>
-                {
-                    GetComponent<ScrollRect>().enabled = true;
-                   if(RateUsHandler.Instance.CheckRateCondition())
-                       RateUsHandler.Instance.rate.SetActive(true);
-                });
-            });
-        }
-        else
+        //    content.DOAnchorPosY(st, 0).OnComplete(() =>
+        //    {
+        //        content.DOAnchorPosY(p, 1).OnComplete(() =>
+        //        {
+        //            GetComponent<ScrollRect>().enabled = true;
+        //           if(RateUsHandler.Instance.CheckRateCondition())
+        //               RateUsHandler.Instance.rate.SetActive(true);
+        //        });
+        //    });
+        //}
+        //else
         {
-            content.DOAnchorPosX(endX, 0).OnComplete(() =>
+            content.DOAnchorPosY(endX, 0).OnComplete(() =>
             {
-                content.DOAnchorPosX(startX, 1f).OnComplete(() =>
+                content.DOAnchorPosY(startX, 1f).OnComplete(() =>
                 {
                     GetComponent<ScrollRect>().enabled = true;
                     if (RateUsHandler.Instance.CheckRateCondition())

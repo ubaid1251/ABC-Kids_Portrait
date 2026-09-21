@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Splash : MonoBehaviour
 {
     public GameObject privacyP;
-    public UmpManager1 UMP;
+    //public UmpManager1 UMP;
     private void Start()
     {
         PlayerPrefs.SetInt("fromGP", 0);
@@ -15,6 +15,7 @@ public class Splash : MonoBehaviour
         PlayerPrefs.SetInt("SelectedMode", 0);
         PlayerPrefs.SetInt("Completed", 0);
         PlayerPrefs.SetInt("ModeIndex",0);
+        PlayerPrefs.SetInt("RemoveAds", 1);
         Application.targetFrameRate = 60;
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Input.multiTouchEnabled = false;
@@ -30,7 +31,7 @@ public class Splash : MonoBehaviour
 
     public void visitPrivacy()
     {
-        Application.OpenURL("https://sites.google.com/view/app-trove-privacy-policy/");
+        Application.OpenURL("https://sites.google.com/view/amasconsultant-privacy-policy/home");
     }
     public void Accept()
     {
@@ -40,13 +41,14 @@ public class Splash : MonoBehaviour
             if (PlayerPrefs.GetInt("ConsentCall") == 0)
             {
                 PlayerPrefs.SetInt("ConsentCall", 1);
-                UMP.ConsentCall();
+                //UMP.ConsentCall();
             }
         }
         catch (System.Exception ex)
         {
             Debug.Log(ex.Message);
         }
+        PlayerPrefs.SetInt("ConsentCall", 1);
         SceneManager.LoadScene("MainSelection");
     }
 }

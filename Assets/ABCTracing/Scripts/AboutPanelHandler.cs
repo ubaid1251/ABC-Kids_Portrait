@@ -12,7 +12,7 @@ public class AboutPanelHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        IntitializeAdmob.instance.HideBanner();//remove later
+        Intitializeabc.instance.HideBanner();//remove later
         for (int i = 0; i < panels.Length; i++)
         {
             panels[i].SetActive(false);
@@ -71,6 +71,6 @@ public class AboutPanelHandler : MonoBehaviour
             SoundHandler.instance.PlayTap();
         }
         if (PlayerPrefs.GetInt("RemoveAds") == 0)//remove later
-            IntitializeAdmob.instance.ShowBanner();//remove later
+            Intitializeabc.instance.ShowBanner();//remove later
     }
 }

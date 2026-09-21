@@ -10,7 +10,7 @@ public class Star_Controller : MonoBehaviour
     public GameObject[] Star;
     public AudioSource PlaySound;
     public RectTransform cross;
-    public GameObject hand;
+    //public GameObject hand;
     private void Start()
     {
         //if (ResCheck.instance.resType == ResType.tab)
@@ -28,7 +28,7 @@ public class Star_Controller : MonoBehaviour
             s.enabled = true;
             s.Play();
         }
-        hand.SetActive(true);
+        //hand.SetActive(true);
         float l = s.clip.length;
         yield return new WaitForSeconds(l);
         DisableHand();
@@ -38,17 +38,17 @@ public class Star_Controller : MonoBehaviour
 
     void DisableHand()
     {
-        hand.SetActive(false);
+        //hand.SetActive(false);
     }
     private void OnEnable()
     {
-        cross.DOScale(0f, 2).OnComplete(() =>
+        cross.DOScale(0f, 0.6f).OnComplete(() =>
         {
-            cross.DOScale(1.3182f, 1);
+            cross.DOScale(1.1f, 1);
         });
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.HideBanner();
+            Intitializeabc.instance.HideBanner();
         }
         if (PlayerPrefs.GetInt("sfx") == 0)
         {
@@ -63,7 +63,7 @@ public class Star_Controller : MonoBehaviour
     public void RateStar(int selectedStar)
     {
         StopAllCoroutines();
-        hand.SetActive(false);
+        //hand.SetActive(false);
         StartCoroutine(StarActive(selectedStar));
     }
 
@@ -80,8 +80,8 @@ public class Star_Controller : MonoBehaviour
                 PlaySound.PlayOneShot(PlaySound.clip);
             yield return new WaitForSeconds(0.15f);
         }
-        InitializeFirebase_CB._Instance.LogFirebaseEvent("Rate_Game_Rated_With_" + selectedStars.ToString() + "_Stars");
-
+     //   InitializeFirebase_CB._Instance.LogFirebaseEvent("Rate_Game_Rated_With_" + selectedStars.ToString() + "_Stars");
+        InitializeFi._Instance.LogFi();
 
         if (selectedStars < 4)
         {
@@ -107,7 +107,7 @@ public class Star_Controller : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.ShowBanner();
+            Intitializeabc.instance.ShowBanner();
         }
         gameObject.SetActive(false);
     }

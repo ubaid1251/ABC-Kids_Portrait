@@ -25,7 +25,9 @@ public class ModeScroll : MonoBehaviour
             content.DOAnchorPosY(600, 0);
         }
         handler.bgm = GetComponent<AudioSource>();
-        if (SubSelection.cameFrom == "MainSelection")
+        //  if (SubSelection.cameFrom == "MainSelection")
+        // {
+        if (GetComponent<ScrollRect>() != null)
         {
             GetComponent<ScrollRect>().enabled = false;
             content.DOAnchorPosY(startF, 0f).OnComplete(() =>
@@ -40,22 +42,22 @@ public class ModeScroll : MonoBehaviour
                 });
             });
         }
-        else
-        {
-            float f = PlayerPrefs.GetFloat("ContentPos");
-            GetComponent<ScrollRect>().enabled = false;
-            content.DOAnchorPosY(startF, 0f).OnComplete(() =>
-            {
-                content.DOAnchorPosY(f, duration).SetEase(Ease).OnComplete(() =>
-                {
-                    if (RateUsHandler.Instance.CheckRateCondition())
-                    {
-                        RateUsHandler.Instance.rate.SetActive(true);
-                    }
-                    GetComponent<ScrollRect>().enabled = true;
-                });
-            });
-        }
+        //else
+        //{
+        //    float f = PlayerPrefs.GetFloat("ContentPos");
+        //    GetComponent<ScrollRect>().enabled = false;
+        //    content.DOAnchorPosY(startF, 0f).OnComplete(() =>
+        //    {
+        //        content.DOAnchorPosY(f, duration).SetEase(Ease).OnComplete(() =>
+        //        {
+        //            if (RateUsHandler.Instance.CheckRateCondition())
+        //            {
+        //                RateUsHandler.Instance.rate.SetActive(true);
+        //            }
+        //            GetComponent<ScrollRect>().enabled = true;
+        //        });
+        //    });
+        //}
         handler.CheckSounds();
     }
 }

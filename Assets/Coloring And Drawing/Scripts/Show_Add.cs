@@ -26,7 +26,7 @@ public class Show_Add : MonoBehaviour
     [Obsolete]
     private void Start()
     {
-        if (IntitializeAdmob.instance) //remove after
+        if (Intitializeabc.instance) //remove after
         {
             if (show)
             {
@@ -34,7 +34,7 @@ public class Show_Add : MonoBehaviour
             }
             else
             {
-                IntitializeAdmob.instance.HideBanner();//remove after
+                Intitializeabc.instance.HideBanner();//remove after
             }
         }
     }
@@ -45,7 +45,7 @@ public class Show_Add : MonoBehaviour
         //Debug.LogError("Show Loading: " + Loading.ShowLoading);
         // if (!Loading.ShowLoading)
         {
-            IntitializeAdmob.instance.ShowBanner();//remove after
+            Intitializeabc.instance.ShowBanner();//remove after
         }
         // else
         // {
@@ -56,7 +56,7 @@ public class Show_Add : MonoBehaviour
     IEnumerator WaitForLoadingToStop()
     {
         yield return new WaitForSeconds(3.25f);
-        IntitializeAdmob.instance.ShowBanner();//remove after
+        Intitializeabc.instance.ShowBanner();//remove after
     }
 
 
@@ -65,15 +65,15 @@ public class Show_Add : MonoBehaviour
     {
         if (dis_Show)
         {
-            if (IntitializeAdmob.instance)//remove after
-                IntitializeAdmob.instance.ShowBanner();//remove after
+            if (Intitializeabc.instance)//remove after
+                Intitializeabc.instance.ShowBanner();//remove after
         }
         else
         {
             if (SceneManager.GetActiveScene().name != "MainSelection")
             {
-                if (IntitializeAdmob.instance) //remove after
-                    IntitializeAdmob.instance.HideBanner();//remove after
+                if (Intitializeabc.instance) //remove after
+                    Intitializeabc.instance.HideBanner();//remove after
             }
         }
     }

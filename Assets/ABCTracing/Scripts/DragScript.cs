@@ -45,6 +45,37 @@ public class DragScript : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         boundsCollider = GetComponent<Collider2D>();
         ABCManager.instance.SetCurrentCol(boundsCollider);
+        if (next != null)
+        {
+            //print("helootrace"+ GetComponent<LineRenderer>().startWidth);
+            //print("helootrace end" + GetComponent<LineRenderer>().endWidth);
+            //print("helootrace widthMultiplier " + GetComponent<LineRenderer>().widthMultiplier);
+
+            if (PlayerPrefs.GetString("SelectedMode") == "NumbersLearning")
+            {
+                print("num");
+                next.transform.GetChild(0).GetComponent<LineRenderer>().startWidth = 1.5f;
+                next.transform.GetChild(0).GetComponent<LineRenderer>().endWidth = 1.5f;
+                next.transform.GetChild(0).GetComponent<LineRenderer>().widthMultiplier = 1.5f;
+            }
+            else
+            {
+                print("alpha");
+                next.transform.GetChild(0).GetComponent<LineRenderer>().startWidth = GetComponent<LineRenderer>().startWidth;
+                next.transform.GetChild(0).GetComponent<LineRenderer>().endWidth = GetComponent<LineRenderer>().endWidth;
+                next.transform.GetChild(0).GetComponent<LineRenderer>().widthMultiplier = GetComponent<LineRenderer>().widthMultiplier;
+            }
+
+            if (PlayerPrefs.GetString("SelectedAlphabet") == "m")
+            {
+                print("in small m");
+                next.transform.GetChild(0).GetComponent<LineRenderer>().startWidth = 1.2f;
+                next.transform.GetChild(0).GetComponent<LineRenderer>().endWidth = 1.2f;
+                next.transform.GetChild(0).GetComponent<LineRenderer>().widthMultiplier = 1.2f;
+            }
+            
+            // next.transform.GetChild(0).GetComponent<LineRenderer>().endWidth = 1.6f;
+        }
     }
     void startIndi()
     {

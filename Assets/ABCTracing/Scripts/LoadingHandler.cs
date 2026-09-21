@@ -34,26 +34,26 @@ public class LoadingHandler : MonoBehaviour
     {
         if (staticInter)
         {
-            staticInter = false;
-            if (IntitializeAdmob.instance.IsStaticInterAvailable())
-            {
-                if (SceneManager.GetActiveScene().name == "ColorGamePlay")
-                {
-                    showBannerEnd = true;
-                }
-                IntitializeAdmob.instance.ShowStaticInterstitial();//remove later
-            }
+            //staticInter = false;
+            //if (Intitializeabc.instance.IsStaticInterAvailable())
+            //{
+            //    if (SceneManager.GetActiveScene().name == "ColorGamePlay")
+            //    {
+            //        showBannerEnd = true;
+            //    }
+            //    Intitializeabc.instance.ShowStaticInterstitial();//remove later
+            //}
         }
         else
         {
-            if (IntitializeAdmob.instance.IsInterAvailable() || IntitializeAdmob.instance.IsStaticInterAvailable())
-            {
-                if (SceneManager.GetActiveScene().name == "ColorGamePlay")
-                {
-                    showBannerEnd = true;
-                }
-                IntitializeAdmob.instance.ShowInterstitialAd();//remove later
-            }
+            //if (Intitializeabc.instance.IsInterAvailable() || Intitializeabc.instance.IsStaticInterAvailable())
+            //{
+            //    if (SceneManager.GetActiveScene().name == "ColorGamePlay")
+            //    {
+            //        showBannerEnd = true;
+            //    }
+            //    Intitializeabc.instance.ShowInterstitialAd();//remove later
+            //}
         }
     }
     public void EndAnim()
@@ -63,11 +63,11 @@ public class LoadingHandler : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "ColorGamePlay")
             {
                 showBannerEnd = false;
-                IntitializeAdmob.instance.ShowBanner();//remove later
+                Intitializeabc.instance.ShowBanner();//remove later
             }
             else
             {
-                IntitializeAdmob.instance.ShowBanner();//remove later
+                Intitializeabc.instance.ShowBanner();//remove later
             }
         }
 

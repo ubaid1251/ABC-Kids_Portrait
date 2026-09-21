@@ -75,14 +75,14 @@ public class Handler : MonoBehaviour
             AdPanel.SetActive(false);
             GridHolder.DOAnchorPosY(0, 0);
             GridHolder.DOScale(1, 0);
-            SafePanel.DOAnchorPosY(505, 0);
+            SafePanel.DOAnchorPosY(170, 0);
         }
         else
         {
             AdPanel.SetActive(true);
             //GridHolder.DOScale(.85f, 0);
             //GridHolder.DOAnchorPosY(-50, 0);
-            SafePanel.DOAnchorPosY(300, 0);
+            //SafePanel.DOAnchorPosY(300, 0);
         }
     }
 
@@ -114,7 +114,7 @@ public class Handler : MonoBehaviour
     IEnumerator ShowAdd()
     {
         yield return new WaitForSeconds(0.5f);
-        IntitializeAdmob.instance.ShowBanner(); //remove after
+        Intitializeabc.instance.ShowBanner(); //remove after
     }
 
     private void Update()

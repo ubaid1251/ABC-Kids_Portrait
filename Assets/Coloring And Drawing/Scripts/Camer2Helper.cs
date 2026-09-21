@@ -18,8 +18,8 @@ public class Camer2Helper : MonoBehaviour
 
     void Start()
     {
-        if (ResCheck.ResolutionType == ResType.tab)
-            homeBar.DOAnchorPosY(424, 0);
+        //if (ResCheck.ResolutionType == ResType.tab)
+            //homeBar.DOAnchorPosY(424, 0);
     }
 
     public void SaveToGallery()

@@ -32,7 +32,7 @@ public class MatchingManager : MonoBehaviour
             mainCam.Play();
         myS = GetComponent<AudioSource>();
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
-            IntitializeAdmob.instance.ShowBanner();
+            Intitializeabc.instance.ShowBanner();
         else
         {
             home.DOAnchorPosY(-100, 0);
@@ -145,17 +145,18 @@ public class MatchingManager : MonoBehaviour
         PlayerPrefs.SetInt("Completed", 1);
         PlayerPrefs.SetInt("RateCounter", PlayerPrefs.GetInt("RateCounter") + 1);
         myS.PlayOneShot(click);
-        InitializeFirebase_CB._Instance.LogFirebaseEvent(SceneManager.GetActiveScene().name+"_Switched_ByHome");
+       // InitializeFirebase_CB._Instance.LogFirebaseEvent(SceneManager.GetActiveScene().name+"_Switched_ByHome");
+        InitializeFi._Instance.LogFi();
         DOTween.KillAll(false);
-        if (IntitializeAdmob.instance.IsStaticInterAvailable())
-        {
-            PlayerPrefs.SetString("ReloadScene", "MainSelection");
-            loading.GetComponent<LoadingHandler>().showBannerEnd = false;
-            loading.GetComponent<LoadingHandler>().loadNextScene = true;
-            loading.GetComponent<LoadingHandler>().staticInter = true;
-            loading.SetActive(true);
-        }
-        else
+        //if (Intitializeabc.instance.IsStaticInterAvailable())
+        //{
+        //    PlayerPrefs.SetString("ReloadScene", "MainSelection");
+        //    loading.GetComponent<LoadingHandler>().showBannerEnd = false;
+        //    loading.GetComponent<LoadingHandler>().loadNextScene = true;
+        //    loading.GetComponent<LoadingHandler>().staticInter = true;
+        //    loading.SetActive(true);
+        //}
+        //else
         {
             SceneManager.LoadScene("MainSelection");
         }

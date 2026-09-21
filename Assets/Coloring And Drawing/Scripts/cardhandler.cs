@@ -19,6 +19,11 @@ public class cardhandler : MonoBehaviour
     private void Awake()
     {
         ToolGrid.SelectedTool = 0;
+        if (ResCheck.ResolutionType == ResType.tab)
+        {
+            print("i am tab");
+            contents[1].localScale=new Vector3(0.9f, 0.9f, 0.9f);
+        }
     }
     private void OnEnable()
     {
@@ -55,19 +60,19 @@ public class cardhandler : MonoBehaviour
     }
     public void Home()
     {
-        IntitializeAdmob.instance.HideBanner();//remove after   
+        Intitializeabc.instance.HideBanner();//remove after   
         //SoundManager.instance.PlayButtonSound(0);
         PlayerPrefs.SetInt("Completed", 1);
         PlayerPrefs.SetInt("RateCounter", PlayerPrefs.GetInt("RateCounter") + 1);
         SoundHandler.instance.PlayTap();
-        if (IntitializeAdmob.instance.IsStaticInterAvailable())//remove after
-        {
-            PlayerPrefs.SetString("ReloadScene","MainSelection");
-            loading.GetComponent<LoadingHandler>().loadNextScene = true;
-            loading.GetComponent<LoadingHandler>().staticInter = true;
-            loading.SetActive(true);
-        }
-        else
+        //if (Intitializeabc.instance.IsStaticInterAvailable())//remove after
+        //{
+        //    PlayerPrefs.SetString("ReloadScene","MainSelection");
+        //    loading.GetComponent<LoadingHandler>().loadNextScene = true;
+        //    loading.GetComponent<LoadingHandler>().staticInter = true;
+        //    loading.SetActive(true);
+        //}
+        //else
         {
             SceneManager.LoadScene("MainSelection");
         }

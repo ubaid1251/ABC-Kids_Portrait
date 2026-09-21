@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Video;
-
 public enum ResType
 {
     iphone6,
@@ -38,7 +34,7 @@ public static class ResCheck
     {
         if (_initialized) return;
 
-        float value = (float)Screen.width / Screen.height; // portrait
+        float value = (float)Screen.height / Screen.width; // portrait
         value = (float)Math.Round(value, 2);
 
         _aspect = value;

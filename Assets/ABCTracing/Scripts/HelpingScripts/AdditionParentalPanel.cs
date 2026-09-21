@@ -18,7 +18,7 @@ public class AdditionParentalPanel : MonoBehaviour
     public AudioSource rong;
     public Button[] buttons;
     //public bool buy = false;
-    public InAppCalling_CB buy;
+    //public InAppCalling_CB buy;
     private void OnEnable()
     {
         for (int i = 0; i < buttons.Length; i++)
@@ -76,11 +76,11 @@ public class AdditionParentalPanel : MonoBehaviour
                 activeObject.SetActive(true);
 
             }
-            else if (buy)
-            {
-                buy.BuyInApp();
-                //InappPanel.Instance.ShowRemoveAdsPanel();
-            }
+            //else if (buy)
+            //{
+            //    buy.BuyInApp();
+            //    //InappPanel.Instance.ShowRemoveAdsPanel();
+            //}
 
         }
         else
@@ -118,7 +118,7 @@ public class AdditionParentalPanel : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("RemoveAds") == 0)
         {
-            IntitializeAdmob.instance.ShowBanner();//remove later
+            Intitializeabc.instance.ShowBanner();//remove later
         }
         gameObject.SetActive(false);
     }

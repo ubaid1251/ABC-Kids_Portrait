@@ -9,7 +9,7 @@ public class HideBanner : MonoBehaviour
     public bool makeItShow = true;
     private void OnEnable()
     {
-        IntitializeAdmob.instance.HideBanner();//remove after
+        Intitializeabc.instance.HideBanner();//remove after
     }
 
     [System.Obsolete]
@@ -29,7 +29,7 @@ public class HideBanner : MonoBehaviour
         }
         if (makeItShow && !HideBannerCheck)
         {
-            IntitializeAdmob.instance.ShowBanner();
+            Intitializeabc.instance.ShowBanner();
         }
     }
 }
