@@ -15,14 +15,15 @@ public class cardhandler : MonoBehaviour
     public GameObject loading,ad;
     public RectTransform []contents;
     public GameObject []Mode;
-    public RectTransform[] title; 
+    public RectTransform[] title;
+    public RectTransform content2;
     private void Awake()
     {
         ToolGrid.SelectedTool = 0;
         if (ResCheck.ResolutionType == ResType.tab)
         {
             print("i am tab");
-            contents[1].localScale=new Vector3(0.9f, 0.9f, 0.9f);
+            content2.localScale=new Vector3(0.9f, 0.9f, 0.9f);
         }
     }
     private void OnEnable()
