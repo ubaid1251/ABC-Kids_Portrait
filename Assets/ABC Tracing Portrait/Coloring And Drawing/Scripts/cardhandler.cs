@@ -22,8 +22,8 @@ public class cardhandler : MonoBehaviour
         ToolGrid.SelectedTool = 0;
         if (ResCheck.ResolutionType == ResType.tab)
         {
-            print("i am tab");
-            content2.localScale=new Vector3(0.9f, 0.9f, 0.9f);
+            //print("i am tab");
+            //content2.localScale=new Vector3(0.9f, 0.9f, 0.9f);
         }
     }
     private void OnEnable()
