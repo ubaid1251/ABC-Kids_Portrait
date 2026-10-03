@@ -27,19 +27,19 @@ public class Camer2Helper : MonoBehaviour
         int apiLevel = GetAndroidAPILevel();
 
         // Only Android 9 and below need WRITE_EXTERNAL_STORAGE for saving
-        if (apiLevel > -1 && apiLevel <= 28)
+        //if (apiLevel > -1 && apiLevel <= 28)
         {
-#if UNITY_ANDROID && !UNITY_EDITOR
-            if (!AndroidRuntimePermissions.CheckPermission("android.permission.WRITE_EXTERNAL_STORAGE"))
-            {
-                var result = AndroidRuntimePermissions.RequestPermission("android.permission.WRITE_EXTERNAL_STORAGE");
-                if (result != AndroidRuntimePermissions.Permission.Granted)
-                {
-                    ToastMessage.Instance.ShowToastMessage("Storage permission is required to save images on this device.");
-                    return;
-                }
-            }
-#endif
+//#if UNITY_ANDROID && !UNITY_EDITOR
+            //if (!AndroidRuntimePermissions.CheckPermission("android.permission.WRITE_EXTERNAL_STORAGE"))
+            //{
+            //    var result = AndroidRuntimePermissions.RequestPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+            //    if (result != AndroidRuntimePermissions.Permission.Granted)
+            //    {
+            //        ToastMessage.Instance.ShowToastMessage("Storage permission is required to save images on this device.");
+            //        return;
+            //    }
+            //}
+//#endif
         }
 
         // UI pre-save animation
